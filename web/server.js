@@ -1,4 +1,5 @@
-const config = require('./vue/dist/UIconfig');
+//const config = require('./vue/dist/UIconfig');
+const config = require('./vue/statics/UiConfig');
 
 const koa = require('koa');
 const serve = require('koa-static');
@@ -106,13 +107,24 @@ router.post('/api/getCandles', require(ROUTE('getCandles')));
 //   ws.on('message', _.noop);
 // });
 
+//закомментировано для нового интерфейса
+//app
+//  .use(cors())
+//  .use(serve(WEBROOT + 'vue/dist'))
+//  .use(bodyParser())
+//  .use(require('koa-logger')())
+//  .use(router.routes())
+//  .use(router.allowedMethods());
+
 app
   .use(cors())
-  .use(serve(WEBROOT + 'vue/dist'))
+  .use(serve(WEBROOT + 'vue'))
   .use(bodyParser())
   .use(require('koa-logger')())
   .use(router.routes())
   .use(router.allowedMethods());
+
+
 
 server.timeout = config.api.timeout || 120000;
 server.on('request', app.callback());
